@@ -33,7 +33,7 @@ class MainTest {
         assertEquals(2, employees.size());
     }
     @Test
-    void Equal () throws IOException, CsvException {
+    void compareParserCSVwithTest () throws IOException, CsvException {
         CSVReader reader1 = new CSVReader(new FileReader("data.csv"));
         List<String[]> Entries1 = reader1.readAll();
 
