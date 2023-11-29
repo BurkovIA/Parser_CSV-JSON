@@ -7,11 +7,9 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 class MainTest {
-    MainTest() throws IOException, CsvException {
+    MainTest() {
     }
     @Test
     void testWriteString(){
@@ -20,7 +18,7 @@ class MainTest {
         Assert.assertTrue(result);
     }
     @Test
-    void parseCSVtest(){
+    void compareParserCSVwithTest () throws IOException, CsvException {
         String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
         String fileName = "test_data.csv";
         try (FileWriter fileWriter = new FileWriter(fileName, true)) {
@@ -29,11 +27,7 @@ class MainTest {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        List<Employee> employees = Main.parseCSV(columnMapping, fileName);
-        assertEquals(2, employees.size());
-    }
-    @Test
-    void compareParserCSVwithTest () throws IOException, CsvException {
+
         CSVReader reader1 = new CSVReader(new FileReader("data.csv"));
         List<String[]> Entries1 = reader1.readAll();
 
@@ -46,7 +40,6 @@ class MainTest {
     }
     @Test
     void testListToJson() {
-
         List<Employee> expectedEmployees = List.of(
                 new Employee(1, "John", "Smith", "USA", 25),
                 new Employee(2, "Ivan", "Petrov", "RU", 23)

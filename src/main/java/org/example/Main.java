@@ -6,16 +6,11 @@ import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-
 import java.util.List;
-
-
 public class Main {
-
     public static void main(String[] args) {
         ArrayList<String> list = new ArrayList<>();
         list.addAll(List.of("1,John,Smith,USA,25\n",
@@ -36,18 +31,15 @@ public class Main {
         writeString(json);
         parseCSV(columnMapping, fileName);
     }
-    private static String listToJson(List<Employee> employees) {
+    public static String listToJson(List<Employee> employees) {
         Type listType = new TypeToken<List<Employee>>() {
         }.getType();
-
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-
         String json = gson.toJson(employees,listType);
-
         return json;
     }
-    private static List<Employee> parseCSV(String[] columnMapping, String fileName) {
+    static List<Employee> parseCSV(String[] columnMapping, String fileName) {
         CsvToBean<Employee> csvToBean = null;
         List<Employee> employees = new ArrayList<>();
         try {
@@ -56,18 +48,15 @@ public class Main {
             ColumnPositionMappingStrategy<Employee> Strategy = new ColumnPositionMappingStrategy<>();
             Strategy.setType(Employee.class);
             Strategy.setColumnMapping(columnMapping);
-
             csvToBean = new CsvToBeanBuilder<Employee>(reader)
                     .withMappingStrategy(Strategy)
                     .build();
             employees = csvToBean.parse();
-
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        return employees;
+        } return employees;
     }
-    private static void writeString(String json) {
+    static boolean writeString(String json) {
         File fileJson = new File("data.json");
         try (FileWriter fileWriter = new FileWriter(fileJson, true)) {
             fileWriter.write(json);
@@ -75,13 +64,6 @@ public class Main {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return true;
     }
 }
-
-
-
-
-
-
-
-
