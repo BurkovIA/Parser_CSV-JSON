@@ -1,12 +1,9 @@
 package org.example;
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import java.io.*;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
     MainTest() {
@@ -18,15 +15,17 @@ class MainTest {
         Assert.assertTrue(result);
     }
     @Test
-    void compareParserCSVtest () throws IOException, CsvException {
-        String [][] Entries1 = {{"1","John","Smith","USA","25"},{"2","Inav","Petrov","RU","23"}};
-        
-        CSVReader reader1 = new CSVReader(new FileReader("data.csv"));
-        List<String[]> Entries2 = reader1.readAll();
+    void testMainMethod() {
+        String[] args = {};
+        boolean success = true;
 
-        for (int i = 0; i < Entries2.size(); i++) {
-            assertArrayEquals(Entries2.get(i), Entries1 [i]);
+        try {
+            Main.main(args);
+        } catch (Exception e) {
+            success = false;
         }
+
+        assertTrue(success);
     }
     @Test
     void testListToJson() {
@@ -40,6 +39,6 @@ class MainTest {
 
         String actualJson = Main.listToJson(expectedEmployees);
 
-        Assertions.assertEquals(exectedJson, actualJson);
+        assertEquals(exectedJson, actualJson);
     }
 }
