@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<String> list = new ArrayList<>();
         list.addAll(List.of("1,John,Smith,USA,25\n",
-                "2,Inav,Petrov,RU,23"));
+                "2,Ivan,Petrov,RU,23"));
 
         try (FileWriter fileWriter = new FileWriter("data.csv", true)) {
             for (String line : list) {
@@ -30,6 +30,7 @@ public class Main {
 
         writeString(json);
         parseCSV(columnMapping, fileName);
+
     }
     public static String listToJson(List<Employee> employees) {
         Type listType = new TypeToken<List<Employee>>() {
@@ -66,4 +67,5 @@ public class Main {
         }
         return true;
     }
+
 }

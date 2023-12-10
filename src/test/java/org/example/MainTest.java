@@ -1,9 +1,11 @@
 package org.example;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MainTest {
     MainTest() {
@@ -15,17 +17,18 @@ class MainTest {
         Assert.assertTrue(result);
     }
     @Test
-    void testMainMethod() {
-        String[] args = {};
-        boolean success = true;
+    public void testParseCSV() throws FileNotFoundException {
+        String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
+        String fileName = "data.csv";
 
-        try {
-            Main.main(args);
-        } catch (Exception e) {
-            success = false;
-        }
+        List<Employee> expectedEmployees = new ArrayList<>();
+        expectedEmployees.add(new Employee(1, "John", "Smith", "USA", 25));
+        expectedEmployees.add(new Employee(2, "Ivan", "Petrov", "RU", 23));
 
-        assertTrue(success);
+        List<Employee> employees = Main.parseCSV(columnMapping, fileName);
+
+        assertArrayEquals(expectedEmployees.toArray(), employees.toArray());
+
     }
     @Test
     void testListToJson() {
